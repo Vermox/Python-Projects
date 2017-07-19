@@ -1,0 +1,184 @@
+#!/usr/bin/python3
+
+import os
+
+guessedWord = []
+guessedLetters = []
+guesses = 6
+
+#--------------------------------------------------------------
+def hangedman6():
+
+	print("      _____   ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   6 incorrect guesses remaining")
+#--------------------------------------------------------------
+def hangedman5():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   5 incorrect guesses remaining")
+#--------------------------------------------------------------
+def hangedman4():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |   O   ")
+	print("      |       ")
+	print("      |       ")
+	print("      |       ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   4 incorrect guesses remaining")
+#--------------------------------------------------------------
+def hangedman3():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |   O   ")
+	print("      |  /|   ")
+	print("      |       ")
+	print("      |       ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   3 incorrect guesses remaining")
+#--------------------------------------------------------------
+def hangedman2():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |   O   ")
+	print("      |  /|\  ")
+	print("      |       ")
+	print("      |       ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   2 incorrect guesses remaining")
+#--------------------------------------------------------------
+def hangedman1():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |   O   ")
+	print("      |  /|\  ")
+	print("      |   |   ")
+	print("      |  /    ")
+	print("     _|______ ")
+	print("    |        |")
+	print("\n   1 incorrect guess remaining")
+#--------------------------------------------------------------
+def hangedman0():
+
+	print("      _____   ")
+	print("      |   |   ")
+	print("      |   O   ")
+	print("      |  /|\  ")
+	print("      |   |   ")
+	print("      |  / \  ")
+	print("     _|______ ")
+	print("    |        |")
+
+#--------------------------------------------------------------
+def isCorrect(word, letter):
+	
+	for i in range (len(word)):
+		if word[i] == letter:
+			return True
+	return False
+#--------------------------------------------------------------
+def fillWord(word, letter):
+
+	for i in range (len(word)):
+		if word[i] == letter:
+			guessedWord[i] = letter
+#--------------------------------------------------------------
+def checkWin(guessedWord):
+	for i in range (len(guessedWord)):
+		if guessedWord[i] == '_':
+			return False
+	return True
+#--------------------------------------------------------------
+def lose(word):
+	
+	print("\n\n   You lose!\n\n")
+	print("   The word was: ", end="")
+	for i in range (0,len(word)):
+		print(word[i], end="")
+	print("\n\n")
+
+#--------------------------------------------------------------
+def win():
+
+	print("\n\n   Congratulations! The man's life is spared!")
+	print("   The word was: ", end="")
+	for i in range (0,len(word)):
+		print(word[i], end="")
+	print("\n\n")
+#--------------------------------------------------------------
+def setupWord(word):
+	for i in range (0,len(word)):
+		if word[i] == ' ':
+			guessedWord.append(' ')
+		else:
+			guessedWord.append('_')
+#--------------------------------------------------------------
+
+os.system('clear')
+print("Welcome to the gallows.")
+wordinput = input("Enter a word or phrase: ").upper()
+word = list(wordinput)
+
+setupWord(word)
+
+while True:
+
+	os.system('clear')
+
+	if guesses == 6:
+		hangedman6()
+		print("\n\n   ", *guessedWord, "\n\n")
+	elif guesses == 5:
+		hangedman5()
+		print("\n\n   ", *guessedWord, "\n\n")
+	elif guesses == 4:
+		hangedman4()
+		print("\n\n   ", *guessedWord, "\n\n")
+	elif guesses == 3:
+		hangedman3()
+		print("\n\n   ", *guessedWord, "\n\n")
+	elif guesses == 2:
+		hangedman2()
+		print("\n\n   ", *guessedWord, "\n\n")
+	elif guesses == 1:
+		hangedman1()
+		print("\n\n   ", *guessedWord, "\n\n")
+	else:
+		hangedman0()
+		print("\n\n   ", *guessedWord, "\n\n")
+		lose(word)
+		break
+	
+	print("Incorrect letters: ", *guessedLetters, "\n\n")
+	letter = input("Guess a letter: ").upper()
+
+	if isCorrect(word, letter) == True:
+		fillWord(word, letter)
+	else:
+		guessedLetters.append(letter)
+		guesses -= 1
+
+	if checkWin(guessedWord) == True:
+		win()
+		break
